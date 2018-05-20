@@ -56,6 +56,8 @@ $(document).ready(function() {
         enemyChoices.empty();
         currentDefender.empty();
         message.text("Choose your character.");
+
+        var enemiesRemaining = 3;
         
         var characterChosen = false;
         var enemyChosen = false;
@@ -154,6 +156,8 @@ $(document).ready(function() {
                 yourEnemy = ($(this));
                 enemyChoices.append($(".btn-enemy"));
                 currentDefender.append(this);
+
+                // Switches enemyChosen to true
                 enemyChosen = true;
 
                 // Adds "current-enemy" class to the chosen character
@@ -187,7 +191,26 @@ $(document).ready(function() {
                 message.text("Please choose a character.");
             }
             else if ( characterChosen && !enemyChosen ) {
-                message.text("Please choose an enemy.");
+                message.text("Please choose an opponent.");
+            }
+            // When your opponent's health reaches 0 or below
+            else if ( enemyHealthPoints - parseInt(yourAttackPower) <= 0 ) {
+                // Still increasing your attack power by your base power
+                yourAttackPower = yourAttackPower + parseInt(baseAttackPower);
+                enemiesRemaining--;
+
+                if ( enemiesRemaining > 0 ) {
+                    message.html("<p>You have defeated " + enemyName + "!<br />Choose your next opponent.</p>");
+                } 
+                else {
+                    message.html("<p>You have defeated all of your opponents! GAME OVER!!!</p>");
+
+                    message.append(restartButton);
+                }
+                currentDefender.empty();
+
+                // Switches enemyChosen to false
+                enemyChosen = false;
             }
             // When your health reaches 0 or below
             else if ( yourHealthPoints - parseInt(enemyCounterAttack) <= 0 ) {
