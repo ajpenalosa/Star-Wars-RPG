@@ -51,7 +51,7 @@ $(document).ready(function() {
         
             // Creating a <button> for each character
             var characterButton = $("<button>");
-            characterButton.addClass("character-wrapper obi-wan-kenobi");
+            characterButton.addClass("btn-character obi-wan-kenobi");
     
             // Creating an <img> for each character
             var characterImage = $("<img>")

@@ -18,15 +18,27 @@ section {
 	Character Choices
 ----------------------------------- */
 
-.character-wrapper {
+.btn-character {
     float: left;
     text-align: center;
     border: 1px solid #CCC;
     padding: 20px;
+    margin: 0 15px;
+    max-width: calc( 25% - 30px);
+    cursor: pointer;
 }
 
-.character-wrapper img {
+.btn-character:first-of-type {
+    margin-left: 0;
+}
+
+.btn-character:last-of-type {
+    margin-right: 0;
+}
+
+.btn-character img {
     display: block;
+    width: 100%;
 }
 
 /* -----------------------------------
