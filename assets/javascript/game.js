@@ -49,6 +49,13 @@ $(document).ready(function() {
         var btnAttack = $(".btn-attack");
         var currentDefender = $(".current-defender");
         var message = $(".message");
+
+        // Game Reset
+
+        characterChoices.empty();
+        enemyChoices.empty();
+        currentDefender.empty();
+        message.text("Choose your character.");
         
         var characterChosen = false;
         var enemyChosen = false;
@@ -61,6 +68,7 @@ $(document).ready(function() {
         var yourHealthPoints;
         var baseAttackPower;
         var yourAttackPower;
+        var enemyName;
         var enemyHealthPoints;
         var enemyCounterAttack;
 
@@ -69,7 +77,7 @@ $(document).ready(function() {
         
             // Creating a <button> for each character
             var characterButton = $("<button>");
-            characterButton.addClass("btn-character").addClass(characters[i].className).val(characters[i].className);
+            characterButton.addClass("btn-character").addClass(characters[i].className).val(characters[i].name);
 
             // Adding data values to the button
             characterButton.attr("data-health-points", characters[i].healthPoints);
@@ -136,6 +144,7 @@ $(document).ready(function() {
                 // Attack code should happen here
                 console.log("Character has been chosen");
             }
+
         });
 
         // Choose your enemy
@@ -150,6 +159,9 @@ $(document).ready(function() {
                 // Adds "current-enemy" class to the chosen character
                 yourEnemy.addClass("current-enemy");
 
+                // Sets enemy's name
+                enemyName = yourEnemy.val();
+
                 // Sets enemy's health points
                 enemyHealthPoints = yourEnemy.attr("data-enemy-health");
                 console.log("Enemy Health: " + enemyHealthPoints);
@@ -163,16 +175,34 @@ $(document).ready(function() {
                 // Attack code should happen here
                 console.log("Enemy has been chosen");
             }
+
+            message.text("FIGHT!!!");
         });
 
         // Attack button
 
         $(".controls").on("click", ".btn-attack", function() {
 
-            if(!characterChosen) {
+            if(!characterChosen && !enemyChosen) {
                 message.text("Please choose a character.");
             }
-            else {
+            else if ( characterChosen && !enemyChosen ) {
+                message.text("Please choose an enemy.");
+            }
+            // When your health reaches 0 or below
+            else if ( yourHealthPoints - parseInt(enemyCounterAttack) <= 0 ) {
+                message.html("<p>You have been defeated...GAME OVER!!!");
+
+                // Reducing your health to 0
+                $(".your-character").find($(".health-points")).text(0);
+
+                message.append(restartButton);
+            }
+            else if (characterChosen && enemyChosen ) {
+
+                // Message
+                message.html("<p>You attacked " + enemyName + " for " + yourAttackPower + " damage.<br />" + enemyName + " attacked you back for " + enemyCounterAttack + " damage.</p>");
+
                 enemyHealthPoints = enemyHealthPoints - yourAttackPower;
                 yourAttackPower = yourAttackPower + parseInt(baseAttackPower);
                 yourHealthPoints = yourHealthPoints - enemyCounterAttack;
@@ -180,8 +210,8 @@ $(document).ready(function() {
                 console.log("Your Attack Power: " + yourAttackPower);
 
                 // Reducing your health and updating the value displayed in the button
-                console.log("Your Health: " + yourHealthPoints);
                 $(".your-character").find($(".health-points")).text(yourHealthPoints);
+                console.log("Your Health: " + yourHealthPoints);
 
                 // Reducing your enemy's health and updating the value displayed in the button
                 console.log("Enemy Health: " + enemyHealthPoints);
@@ -193,5 +223,14 @@ $(document).ready(function() {
     } // End of game function
 
     game();
+
+    // Creating restart button
+    var restartButton = $("<button>");
+    restartButton.addClass("btn-restart");
+    restartButton.text("Restart");
+
+    $(document).on("click", ".btn-restart", function() {
+        game();
+    });
 
   }); // End of document ready function
