@@ -2,6 +2,17 @@
 	Star Wars RPG
 --------------------------------------------------------------------------------------------- */
 
+/* -----------------------------------
+	Layout
+----------------------------------- */
+
+section {
+    margin-bottom: 40px;
+    background: #EFEFEF;
+    padding: 30px;
+    border-radius: 10px;
+}
+
 
 /* -----------------------------------
 	Character Choices
@@ -9,6 +20,9 @@
 
 .character-wrapper {
     float: left;
+    text-align: center;
+    border: 1px solid #CCC;
+    padding: 20px;
 }
 
 .character-wrapper img {
