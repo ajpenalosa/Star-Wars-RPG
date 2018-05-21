@@ -46,16 +46,18 @@ $(document).ready(function() {
         // Creating variables to hold page elements to be used later
         var characterChoices = $(".character-choices");
         var enemyChoices = $(".enemy-choices");
-        var btnAttack = $(".btn-attack");
         var currentDefender = $(".current-defender");
+        var controls = $(".controls");
         var message = $(".message");
 
-        // Game Reset
+        // Creating attack button
+        var btnAttack = $("<button>");
+        btnAttack.addClass("btn-attack");
+        btnAttack.text("Attack");
 
+        // Game Reset
         characterChoices.empty();
-        enemyChoices.empty();
-        currentDefender.empty();
-        message.text("Choose your character.");
+        message.html("<h2>Choose your character</h2>");
 
         var enemiesRemaining = 3;
         
@@ -64,6 +66,7 @@ $(document).ready(function() {
 
         var yourCharacter;
         var yourEnemy;
+        var remainingEnemies;
 
         // Character stats
 
@@ -112,7 +115,8 @@ $(document).ready(function() {
             // Storing the button in a variable
             var btnCharacter = $(".btn-character");
 
-            if(!characterChosen) {
+            // If you haven't chosen a character to play
+            if( !characterChosen && !enemyChosen ) {
 
                 // Stores the chosen character in a variable
                 yourCharacter = ($(this));
@@ -132,30 +136,25 @@ $(document).ready(function() {
                 // Removes "btn-enemy" class from the chosen character
                 yourCharacter.removeClass("btn-enemy");
 
+                remainingEnemies = $(".btn-enemy");
+
                 // Adds "your-character" class to the chosen character
                 yourCharacter.addClass("your-character");
 
-                // Appends characters that were not chosen to the enemy choices div
-                enemyChoices.append(btnCharacter);
-                characterChoices.append(this);
+                // Appends characters that were not chosen back into character choices div
+                characterChoices.empty();
+                characterChoices.append(remainingEnemies);
 
                 characterChosen = true;
+
+                message.html("<h2>Choose your opponent</h2>");
             }
-            else {
+            // If you've chosen a character but not an opponent
+            else if ( characterChosen && !enemyChosen ) {
 
-                // Attack code should happen here
-                console.log("Character has been chosen");
-            }
-
-        });
-
-        // Choose your enemy
-        enemyChoices.on("click", ".btn-enemy", function() {
-
-            if(!enemyChosen) {
                 yourEnemy = ($(this));
-                enemyChoices.append($(".btn-enemy"));
-                currentDefender.append(this);
+                yourEnemy.toggleClass("btn-enemy");
+                remainingEnemies = $(".btn-enemy");
 
                 // Switches enemyChosen to true
                 enemyChosen = true;
@@ -173,44 +172,44 @@ $(document).ready(function() {
                 // Sets enemy's counter attack power
                 enemyCounterAttack = yourEnemy.attr("data-counter-attack");
                 console.log("Counter Attack: " + enemyCounterAttack);
-            }
-            else {
 
-                // Attack code should happen here
-                console.log("Enemy has been chosen");
+                characterChoices.empty();
+
+                characterChoices.append(yourCharacter);
+                characterChoices.append(btnAttack);
+                characterChoices.append(this);
+
+                message.html("<h2>FIGHT!!!</h2>");
             }
 
-            message.text("FIGHT!!!");
         });
 
         // Attack button
 
-        $(".controls").on("click", ".btn-attack", function() {
+        $(document).on("click", ".btn-attack", function() {
 
-            if(!characterChosen && !enemyChosen) {
-                message.text("Please choose a character.");
-            }
-            else if ( characterChosen && !enemyChosen ) {
-                message.text("Please choose an opponent.");
-            }
             // When your opponent's health reaches 0 or below
-            else if ( enemyHealthPoints - parseInt(yourAttackPower) <= 0 ) {
+            if ( enemyHealthPoints - parseInt(yourAttackPower) <= 0 ) {
                 // Still increasing your attack power by your base power
                 yourAttackPower = yourAttackPower + parseInt(baseAttackPower);
                 enemiesRemaining--;
 
+                characterChoices.empty();
+                characterChoices.append(remainingEnemies);
+
                 if ( enemiesRemaining > 0 ) {
                     message.html("<p>You have defeated " + enemyName + "!<br />Choose your next opponent.</p>");
+
+                    // Switches enemyChosen to false
+                    enemyChosen = false;
                 } 
                 else {
                     message.html("<p>You have defeated all of your opponents! GAME OVER!!!</p>");
 
+                    characterChoices.append(yourCharacter);
+                    
                     message.append(restartButton);
                 }
-                currentDefender.empty();
-
-                // Switches enemyChosen to false
-                enemyChosen = false;
             }
             // When your health reaches 0 or below
             else if ( yourHealthPoints - parseInt(enemyCounterAttack) <= 0 ) {
@@ -248,12 +247,12 @@ $(document).ready(function() {
     game();
 
     // Creating restart button
-    var restartButton = $("<button>");
-    restartButton.addClass("btn-restart");
-    restartButton.text("Restart");
+    // var restartButton = $("<button>");
+    // restartButton.addClass("btn-restart");
+    // restartButton.text("Restart");
 
-    $(document).on("click", ".btn-restart", function() {
-        game();
-    });
+    // $(document).on("click", ".btn-restart", function() {
+    //     game();
+    // });
 
   }); // End of document ready function
