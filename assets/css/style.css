@@ -1,18 +1,88 @@
 /* -----------------------------------
 	Star Wars RPG
 --------------------------------------------------------------------------------------------- */
+/* -----------------------------------
+	Typography
+----------------------------------- */
+
+@font-face {
+    font-family: "Star Wars";
+    src: url(../fonts/Strjmono.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Star Wars Hollow";
+    src: url(../fonts/Starjhol.ttf) format("truetype");
+}
+
+@import url('https://fonts.googleapis.com/css?family=Orbitron:400,700');
 
 /* -----------------------------------
 	Layout
 ----------------------------------- */
 
-section {
-    margin-bottom: 40px;
-    background: #EFEFEF;
-    padding: 30px;
-    border-radius: 10px;
+html {
+    background: url("../images/background.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
+body {
+    background-color: transparent;
+    font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+    margin-bottom: 20px;
+}
+
+/* -----------------------------------
+	Character Choices
+----------------------------------- */
+
+.game-title {
+    background-color: transparent;
+    padding: 30px;
+}
+
+.game-title h1 {
+    font-family: "Star Wars", Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #EEDB00;
+    font-size: 60px;
+}
+
+/* -----------------------------------
+	Fight Area
+----------------------------------- */
+
+.fight-area {
+    border: 10px solid rgb(89, 89, 89);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+    -moz-box-shadow:    inset 0 0 20px #000000;
+    -webkit-box-shadow: inset 0 0 20px #000000;
+    box-shadow:         inset 0 0 20px #000000;
+}
+
+.fight-area::after {
+    content: "";
+    background: url("../images/game-area-bg.png");
+    background-size: 300px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
 
 /* -----------------------------------
 	Character Choices
@@ -22,15 +92,20 @@ section {
     text-align: center;
 }
 
-.btn-character {
+button.btn-character {
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    border: 1px solid #CCC;
-    padding: 20px;
+    padding: 0;
     margin: 0 15px;
     max-width: calc( 25% - 30px);
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+    background: transparent;
+    border: 0;
+    color: #D5C377;
 }
 
 .btn-character:first-of-type {
@@ -44,6 +119,12 @@ section {
 .btn-character img {
     display: block;
     width: 100%;
+    margin: 10px 0;
+}
+
+.health-points {
+    color: #FFF;
+    font-size: 20px;
 }
 
 .vs {
@@ -60,6 +141,25 @@ section {
     padding: 40px;
 }
 
+button.btn-attack {
+    background-color: #AD231F;
+    border: 0;
+    color: #FFF;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    margin: 0 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+button.btn-attack:hover {
+    background-color: rgb(211, 30, 24);
+}
+
+button.btn-attack:active {
+    background-color: #AD231F;
+}
+
 /* -----------------------------------
 	Message
 ----------------------------------- */
@@ -67,6 +167,11 @@ section {
 .message {
     text-align: center;
     padding: 20px 0 0;
+    color: rgb(128, 170, 228);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    border: 4px solid rgba(255, 255, 255, 0.15);
+    margin-top: 20px;
 }
 
 /* -----------------------------------
