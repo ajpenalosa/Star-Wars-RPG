@@ -18,8 +18,13 @@ section {
 	Character Choices
 ----------------------------------- */
 
+.character-choices {
+    text-align: center;
+}
+
 .btn-character {
-    float: left;
+    display: inline-block;
+    vertical-align: middle;
     text-align: center;
     border: 1px solid #CCC;
     padding: 20px;
@@ -41,9 +46,28 @@ section {
     width: 100%;
 }
 
+.vs {
+    font-size: 40px;
+    font-weight: bold;
+}
+
 /* -----------------------------------
-	Typography
+	Controls
 ----------------------------------- */
+
+.controls {
+    text-align: center;
+    padding: 40px;
+}
+
+/* -----------------------------------
+	Message
+----------------------------------- */
+
+.message {
+    text-align: center;
+    padding: 20px 0 0;
+}
 
 /* -----------------------------------
 	Helpers
