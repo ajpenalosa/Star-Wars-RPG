@@ -40,15 +40,57 @@ $(document).ready(function() {
         }
     ];
 
+    // Creating variables to hold page elements to be used later
+    var characterChoices = $(".character-choices");
+    var enemyChoices = $(".enemy-choices");
+    var currentDefender = $(".current-defender");
+    var controls = $(".controls");
+    var message = $(".message");
+
+    var themeSong = new Audio("./assets/audio/star-wars.mp3");
+
+    var gameTitle = $(".game-title");
+    var fightArea = $('.fight-area');
+
+    gameTitle.hide();
+    fightArea.hide();
+
+    function gameIntro() {
+        themeSong.play();
+        $(".intro").show();
+
+        setTimeout(function() {
+            $(".logo").hide();
+        }, 12000);
+    }
+
+    // Game intro
+
+    var startScreen = $(".start-screen");
+    var playButton = $(".play-intro");
+    var skipIntro = $(".skip-intro");
+
+    playButton.on("click", function() {
+        startScreen.hide();
+        gameIntro();
+        
+        setTimeout(function() {
+            game();
+            $(".game-container").addClass("slide-in");
+        }, 26000);
+
+    });
+
+    skipIntro.on("click", function() {
+        startScreen.hide();
+        game();
+    });
+
     // Creating a game function
     function game() {
 
-        // Creating variables to hold page elements to be used later
-        var characterChoices = $(".character-choices");
-        var enemyChoices = $(".enemy-choices");
-        var currentDefender = $(".current-defender");
-        var controls = $(".controls");
-        var message = $(".message");
+        gameTitle.show();
+        fightArea.show();
 
         // Creating attack button
         var btnAttack = $("<button>");
@@ -243,8 +285,6 @@ $(document).ready(function() {
         });
 
     } // End of game function
-
-    game();
 
     // Creating restart button
     // var restartButton = $("<button>");
