@@ -5,6 +5,8 @@
 	Typography
 ----------------------------------- */
 
+@import url('https://fonts.googleapis.com/css?family=News+Cycle:400,700');
+
 @font-face {
     font-family: "Star Wars";
     src: url(../fonts/Strjmono.ttf) format("truetype");
@@ -15,11 +17,15 @@
     src: url(../fonts/Starjhol.ttf) format("truetype");
 }
 
-@import url('https://fonts.googleapis.com/css?family=Orbitron:400,700');
-
 /* -----------------------------------
 	Layout
 ----------------------------------- */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
 
 html {
     background: url("../images/background.jpg") no-repeat center center fixed; 
@@ -31,30 +37,188 @@ html {
 
 body {
     background-color: transparent;
-    font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+    font-family: '"News Cycle"', Arial, Helvetica, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     text-transform: uppercase;
-    font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+    font-family: '"News Cycle"', Arial, Helvetica, sans-serif;
     margin-bottom: 20px;
 }
 
 /* -----------------------------------
-	Character Choices
+	Start Screen
+----------------------------------- */
+
+.start-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+button.btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    margin-top: -80px;
+    margin-left: -150px;
+    padding: 20px 0;
+    background-color: #AD231F;
+    border: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #FFF;
+    text-transform: uppercase;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+button.btn:hover {
+    background-color: rgb(211, 30, 24);
+}
+
+button.btn:active {
+    background-color: #AD231F;
+}
+
+a.skip-intro {
+    margin-top: 10px;
+    display: inline-block;
+    color: #FFF;
+    position: relative;
+    z-index: 40;
+}
+
+.start-screen h1 {
+    font-family: "Star Wars", Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #EEDB00;
+    font-size: 80px;
+    line-height: 70px;
+}
+
+/* -----------------------------------
+	Game Intro
+----------------------------------- */
+
+@keyframes intro {
+    from {
+        width: 1800px;
+        height: 770px;
+    }
+    to {
+        width: 200px;
+        height: 86px;
+        margin-left: -100px;
+        margin-top: -43px;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes textSscroll {
+    from {
+        margin-top: 1200px;
+    }
+    to {
+        margin-top: -1200px;
+    }
+}
+
+@keyframes slide {
+    from {
+        margin-top: 500px;
+    }
+    to {
+        margin-top: 0;
+    }
+}
+
+.intro {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    perspective: 100px;
+}
+
+.logo img {
+    width: 100%;
+    opacity: 1;
+    animation: fade 4000ms 8000ms 1;
+}
+
+.logo {
+    position: absolute;
+    width: 1800px;
+    height: 770px;
+    top: 50%;
+    left: 50%;
+    margin-left: -900px;
+    margin-top: -385px;
+    animation: intro 12000ms 1;
+}
+
+.intro h1 {
+    font-family: "Star Wars", Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #EEDB00;
+    font-size: 400px;
+    line-height: 360px;
+}
+
+.intro-text {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    margin-left: -40%;
+    width: 80%;
+    transform: rotateX(8deg);
+    overflow: hidden;
+}
+
+.text-scroll {
+    margin-top: 1200px;
+    animation: textSscroll 30000ms 1 linear;
+}
+
+.intro-text p {
+    color: #EEDB00;
+    font-size: 40px;
+    margin-bottom: 60px;
+}
+
+.slide-in {
+    animation: slide 3000ms 1;
+}
+
+/* -----------------------------------
+	Game Title
 ----------------------------------- */
 
 .game-title {
     background-color: transparent;
     padding: 30px;
+    height: 160px;
+    box-sizing: border-box;
 }
 
 .game-title h1 {
     font-family: "Star Wars", Arial, Helvetica, sans-serif;
     text-align: center;
     color: #EEDB00;
-    font-size: 60px;
+    font-size: 80px;
 }
 
 /* -----------------------------------
@@ -96,16 +260,24 @@ button.btn-character {
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    padding: 0;
+    padding: 10px 5px;
     margin: 0 15px;
     max-width: calc( 25% - 30px);
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
     background: transparent;
     border: 0;
     color: #D5C377;
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    border-radius: 6px;
+}
+
+button.btn-character:hover {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .btn-character:first-of-type {
@@ -124,7 +296,16 @@ button.btn-character {
 
 .health-points {
     color: #FFF;
+    font-size: 30px;
+}
+
+.health-points::before {
+    font-family: "Font Awesome 5 Solid";
+    content: "\f004";
+    color: rgb(210, 39, 33);
+    margin-right: 10px;
     font-size: 20px;
+    vertical-align: middle;
 }
 
 .vs {
